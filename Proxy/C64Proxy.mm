@@ -1264,6 +1264,11 @@
     return (Recorder *)obj;
 }
 
+- (void)setFFmpegPath:(NSString *)path
+{
+    [self recorder]->setFFmpegPath([path UTF8String]);
+}
+
 - (BOOL)hasFFmpeg
 {
     return [self recorder]->hasFFmpeg();

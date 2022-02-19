@@ -657,6 +657,7 @@
 @property (readonly) NSInteger bitRate;
 @property (readonly) NSInteger sampleRate;
 
+- (void)setFFmpegPath:(NSString *)path;
 - (BOOL)startRecording:(NSRect)rect
                bitRate:(NSInteger)rate
                aspectX:(NSInteger)aspectX

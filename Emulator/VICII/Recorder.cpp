@@ -14,10 +14,17 @@
 #include "Muxer.h"
 #include "VICII.h"
 
+
+void
+Recorder::setFFmpegPath(const string &path)
+{
+    this->FFmpegPath = path;
+}
+
 bool
 Recorder::hasFFmpeg() const
 {
-    return util::getSizeOfFile(ffmpegPath()) > 0;
+    return util::getSizeOfFile(FFmpegPath) > 0;
 }
 
 void
@@ -37,7 +44,7 @@ Recorder::_dump(dump::Category category, std::ostream& os) const
 {
     using namespace util;
     
-    os << tab("FFmpeg path") << ffmpegPath() << std::endl;
+    os << tab("FFmpeg path") << FFmpegPath << std::endl;
     os << tab("Installed") << bol(hasFFmpeg()) << std::endl;
     os << tab("Video pipe") << bol(videoPipe != -1) << std::endl;
     os << tab("Audio pipe") << bol(audioPipe != -1) << std::endl;
@@ -95,7 +102,7 @@ Recorder::startRecording(int x1, int y1, int x2, int y2,
         //
         
         // Path to the FFmpeg executable
-        string cmd1 = ffmpegPath() + " -nostdin";
+        string cmd1 = FFmpegPath + " -nostdin";
         
         // Verbosity
         cmd1 += " -loglevel " + loglevel();
@@ -132,7 +139,7 @@ Recorder::startRecording(int x1, int y1, int x2, int y2,
         //
         
         // Path to the FFmpeg executable
-        string cmd2 = ffmpegPath() + " -nostdin";
+        string cmd2 = FFmpegPath + " -nostdin";
         
         // Verbosity
         cmd2 += " -loglevel " + loglevel();
@@ -219,7 +226,7 @@ Recorder::exportAs(const string &path)
     string cmd;
     
     // Path to the FFmpeg executable
-    cmd += ffmpegPath();
+    cmd += FFmpegPath;
 
     // Verbosity
     cmd += " -loglevel " + loglevel();

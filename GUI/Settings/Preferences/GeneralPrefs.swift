@@ -21,25 +21,11 @@ extension PreferencesController {
         genScreenshotTargetPopup.selectItem(withTag: pref.screenshotTargetIntValue)
         
         // Screen captures
-        let hasFFmpeg = c64.recorder.hasFFmpeg
+        genFFmpegPath.stringValue = "\(pref.captureEngine)"
         genCaptureSource.selectItem(withTag: pref.captureSource)
         genBitRate.stringValue = "\(pref.bitRate)"
         genAspectX.integerValue = pref.aspectX
         genAspectY.integerValue = pref.aspectY
-        genCaptureSource.isEnabled = hasFFmpeg
-        genBitRate.isEnabled = hasFFmpeg
-        genAspectX.isEnabled = hasFFmpeg
-        genAspectY.isEnabled = hasFFmpeg
-        
-        if hasFFmpeg {
-            genFFmpegIcon.isHidden = false
-            genFFmpegPath.textColor = .textColor
-            genFFmpegPath.stringValue = "/usr/local/bin/ffmpeg"
-        } else {
-            genFFmpegIcon.isHidden = true
-            genFFmpegPath.textColor = .warningColor
-            genFFmpegPath.stringValue = "Requires /usr/local/bin/ffmpeg"
-        }
 
         // Fullscreen
         genAspectRatioButton.state = pref.keepAspectRatio ? .on : .off
@@ -74,6 +60,26 @@ extension PreferencesController {
         if sender.integerValue > 0 {
             pref.snapshotInterval = sender.integerValue
         }
+        refresh()
+    }
+    
+    @IBAction func FFmpegAction(_ sender: NSTextField!) {
+        
+        c64.recorder.setFFmpegPath(sender.stringValue)
+        let hasFFmpeg = c64.recorder.hasFFmpeg
+
+        if hasFFmpeg {
+            genFFmpegIcon.isHidden = false
+            genFFmpegPath.textColor = .textColor
+            pref.captureEngine = sender.stringValue
+        } else {
+            genFFmpegIcon.isHidden = true
+            genFFmpegPath.textColor = .warningColor
+        }
+        genCaptureSource.isEnabled = hasFFmpeg
+        genBitRate.isEnabled = hasFFmpeg
+        genAspectX.isEnabled = hasFFmpeg
+        genAspectY.isEnabled = hasFFmpeg
         refresh()
     }
     

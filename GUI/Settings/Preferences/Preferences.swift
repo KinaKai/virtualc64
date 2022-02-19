@@ -37,6 +37,7 @@ class Preferences {
     }
     
     // Screen captures
+    var captureEngine = GeneralDefaults.std.captureEngine
     var captureSource = GeneralDefaults.std.captureSource
     var bitRate = 512 {
         didSet {
@@ -143,6 +144,7 @@ class Preferences {
         screenshotTargetIntValue = defaults.integer(forKey: Keys.Gen.screenshotTarget)
         
         // Captures
+        captureEngine = defaults.string(forKey: Keys.Gen.captureEngine) ?? GeneralDefaults.std.captureEngine
         captureSource = defaults.integer(forKey: Keys.Gen.captureSource)
         bitRate = defaults.integer(forKey: Keys.Gen.bitRate)
         aspectX = defaults.integer(forKey: Keys.Gen.aspectX)
@@ -174,6 +176,7 @@ class Preferences {
         defaults.set(screenshotTargetIntValue, forKey: Keys.Gen.screenshotTarget)
 
         // Captures
+        defaults.set(captureEngine, forKey: Keys.Gen.captureEngine)
         defaults.set(captureSource, forKey: Keys.Gen.captureSource)
         defaults.set(bitRate, forKey: Keys.Gen.bitRate)
         defaults.set(aspectX, forKey: Keys.Gen.aspectX)

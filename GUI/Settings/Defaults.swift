@@ -137,6 +137,7 @@ struct Keys {
         static let screenshotTarget       = "VC64_GEN_ScreenshotTarget"
         
         // Screen captures
+        static let captureEngine          = "VC64_GEN_CaptureEngine"
         static let captureSource          = "VC64_GEN_Source"
         static let bitRate                = "VC64_GEN_BitRate"
         static let aspectX                = "VC64_GEN_AspectX"
@@ -165,6 +166,7 @@ struct GeneralDefaults {
     let screenshotTarget: NSBitmapImageRep.FileType
     
     // Captures
+    let captureEngine: String
     let captureSource: Int
     let bitRate: Int
     let aspectX: Int
@@ -193,6 +195,7 @@ struct GeneralDefaults {
         screenshotSource: 0,
         screenshotTarget: .png,
         
+        captureEngine: "/usr/local/bin/ffmpeg",
         captureSource: 0,
         bitRate: 2048,
         aspectX: 768,
@@ -221,6 +224,7 @@ extension UserDefaults {
             Keys.Gen.screenshotSource: defaults.screenshotSource,
             Keys.Gen.screenshotTarget: Int(defaults.screenshotTarget.rawValue),
             
+            Keys.Gen.captureEngine: defaults.captureEngine,
             Keys.Gen.captureSource: defaults.captureSource,
             Keys.Gen.bitRate: defaults.bitRate,
             Keys.Gen.aspectX: defaults.aspectX,
@@ -250,6 +254,7 @@ extension UserDefaults {
                      Keys.Gen.screenshotSource,
                      Keys.Gen.screenshotTarget,
                      
+                     Keys.Gen.captureEngine,
                      Keys.Gen.captureSource,
                      Keys.Gen.bitRate,
                      Keys.Gen.aspectX,

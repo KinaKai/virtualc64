@@ -19,8 +19,8 @@ class Recorder : public SubComponent {
     //
     
     // Path to the FFmpeg executable
-    static string ffmpegPath() { return "/usr/local/bin/ffmpeg"; }
-
+    string FFmpegPath;
+    
     // Path to the two named input pipes
     static string videoPipePath() { return "/tmp/videoPipe"; }
     static string audioPipePath() { return "/tmp/audioPipe"; }
@@ -29,9 +29,8 @@ class Recorder : public SubComponent {
     static string videoStreamPath() { return "/tmp/video.mp4"; }
     static string audioStreamPath() { return "/tmp/audio.mp4"; }
 
-    // Log level passed to FFmpef
+    // Log level passed to FFmpeg
     static const string loglevel() { return REC_DEBUG ? "verbose" : "warning"; }
-    
 
     //
     // Handles
@@ -86,9 +85,6 @@ public:
     
     using SubComponent::SubComponent;
     
-    bool hasFFmpeg() const;
-
-    
     //
     // Methods from C64Object
     //
@@ -134,13 +130,15 @@ public:
     isize getFrameRate() const { return frameRate; }
     isize getBitRate() const { return bitRate; }
     isize getSampleRate() const { return sampleRate; }
-
-    
+        
     //
     // Starting and stopping a video capture
     //
     
 public:
+    
+    void setFFmpegPath(const string &path);
+    bool hasFFmpeg() const;
         
     // Checks whether the screen is currently recorded
     bool isRecording() const { return state != State::wait; }
